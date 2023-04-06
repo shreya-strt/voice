@@ -1,88 +1,43 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-	<title></title>
-	<meta name="generator" content="LibreOffice 7.3.7.2 (Linux)"/>
-	<meta name="created" content="2023-04-06T13:39:42.764081706"/>
-	<meta name="changed" content="2023-04-06T13:40:09.642634396"/>
-	<style type="text/css">
-		@page { size: 21cm 29.7cm; margin: 2cm }
-		p { line-height: 115%; margin-bottom: 0.25cm; background: transparent }
-	</style>
+    <meta charset="utf-8">
+    <title>Speech Recognition Landing Page</title>
 </head>
-<body lang="en-IN" link="#000080" vlink="#800000" dir="ltr"><p style="line-height: 100%; margin-bottom: 0cm">
-&lt;!DOCTYPE html&gt;</p>
-<p style="line-height: 100%; margin-bottom: 0cm">&lt;html&gt;</p>
-<p style="line-height: 100%; margin-bottom: 0cm">&lt;head&gt;</p>
-<p style="line-height: 100%; margin-bottom: 0cm">    &lt;meta
-charset=&quot;utf-8&quot;&gt;</p>
-<p style="line-height: 100%; margin-bottom: 0cm">    &lt;title&gt;Speech
-Recognition Landing Page&lt;/title&gt;</p>
-<p style="line-height: 100%; margin-bottom: 0cm">&lt;/head&gt;</p>
-<p style="line-height: 100%; margin-bottom: 0cm">&lt;body&gt;</p>
-<p style="line-height: 100%; margin-bottom: 0cm">    &lt;h1&gt;Speech
-Recognition Landing Page&lt;/h1&gt;</p>
-<p style="line-height: 100%; margin-bottom: 0cm">    &lt;p&gt;Click
-the button below and start speaking to record your speech:&lt;/p&gt;</p>
-<p style="line-height: 100%; margin-bottom: 0cm">    &lt;button
-id=&quot;record-btn&quot; onclick=&quot;startRecording()&quot;&gt;Record&lt;/button&gt;</p>
-<p style="line-height: 100%; margin-bottom: 0cm">    &lt;script&gt;</p>
-<p style="line-height: 100%; margin-bottom: 0cm">        var
-recorder;</p>
-<p style="line-height: 100%; margin-bottom: 0cm">        function
-startRecording() {</p>
-<p style="line-height: 100%; margin-bottom: 0cm">           
-navigator.mediaDevices.getUserMedia({ audio: true })</p>
-<p style="line-height: 100%; margin-bottom: 0cm">           
-.then(function(stream) {</p>
-<p style="line-height: 100%; margin-bottom: 0cm">               
-recorder = new MediaRecorder(stream);</p>
-<p style="line-height: 100%; margin-bottom: 0cm">               
-recorder.start();</p>
-<p style="line-height: 100%; margin-bottom: 0cm">               
-console.log(&quot;Recording started.&quot;);</p>
-<p style="line-height: 100%; margin-bottom: 0cm">           
-}).catch(function(err) {</p>
-<p style="line-height: 100%; margin-bottom: 0cm">               
-console.log(&quot;Error: &quot; + err);</p>
-<p style="line-height: 100%; margin-bottom: 0cm">            });</p>
-<p style="line-height: 100%; margin-bottom: 0cm">        }</p>
-<p style="line-height: 100%; margin-bottom: 0cm">       
-window.addEventListener('mouseup', function() {</p>
-<p style="line-height: 100%; margin-bottom: 0cm">            if
-(recorder &amp;&amp; recorder.state === &quot;recording&quot;) {</p>
-<p style="line-height: 100%; margin-bottom: 0cm">               
-recorder.stop();</p>
-<p style="line-height: 100%; margin-bottom: 0cm">               
-console.log(&quot;Recording stopped.&quot;);</p>
-<p style="line-height: 100%; margin-bottom: 0cm">               
-recorder.ondataavailable = function(e) {</p>
-<p style="line-height: 100%; margin-bottom: 0cm">                   
-var url = URL.createObjectURL(e.data);</p>
-<p style="line-height: 100%; margin-bottom: 0cm">                   
-var xhr = new XMLHttpRequest();</p>
-<p style="line-height: 100%; margin-bottom: 0cm">                   
-xhr.open('POST', '/process-audio', true);</p>
-<p style="line-height: 100%; margin-bottom: 0cm">                   
-xhr.setRequestHeader('Content-Type', 'audio/wav');</p>
-<p style="line-height: 100%; margin-bottom: 0cm">                   
-xhr.onreadystatechange = function() {</p>
-<p style="line-height: 100%; margin-bottom: 0cm">                    
-   if (xhr.readyState === 4 &amp;&amp; xhr.status === 200) {</p>
-<p style="line-height: 100%; margin-bottom: 0cm">                    
-       console.log(xhr.responseText);</p>
-<p style="line-height: 100%; margin-bottom: 0cm">                    
-   }</p>
-<p style="line-height: 100%; margin-bottom: 0cm">                   
-};</p>
-<p style="line-height: 100%; margin-bottom: 0cm">                   
-xhr.send(e.data);</p>
-<p style="line-height: 100%; margin-bottom: 0cm">                };</p>
-<p style="line-height: 100%; margin-bottom: 0cm">            }</p>
-<p style="line-height: 100%; margin-bottom: 0cm">        });</p>
-<p style="line-height: 100%; margin-bottom: 0cm">    &lt;/script&gt;</p>
-<p style="line-height: 100%; margin-bottom: 0cm">&lt;/body&gt;</p>
-<p style="line-height: 100%; margin-bottom: 0cm">&lt;/html&gt;</p>
+<body>
+    <h1>Speech Recognition Landing Page</h1>
+    <p>Click the button below and start speaking to record your speech:</p>
+    <button id="record-btn" onclick="startRecording()">Record</button>
+    <script>
+        var recorder;
+        function startRecording() {
+            navigator.mediaDevices.getUserMedia({ audio: true })
+            .then(function(stream) {
+                recorder = new MediaRecorder(stream);
+                recorder.start();
+                console.log("Recording started.");
+            }).catch(function(err) {
+                console.log("Error: " + err);
+            });
+        }
+        window.addEventListener('mouseup', function() {
+            if (recorder && recorder.state === "recording") {
+                recorder.stop();
+                console.log("Recording stopped.");
+                recorder.ondataavailable = function(e) {
+                    var url = URL.createObjectURL(e.data);
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('POST', '/process-audio', true);
+                    xhr.setRequestHeader('Content-Type', 'audio/wav');
+                    xhr.onreadystatechange = function() {
+                        if (xhr.readyState === 4 && xhr.status === 200) {
+                            console.log(xhr.responseText);
+                        }
+                    };
+                    xhr.send(e.data);
+                };
+            }
+        });
+    </script>
 </body>
 </html>
